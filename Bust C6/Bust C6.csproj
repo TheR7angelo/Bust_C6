@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>Icone.ico</ApplicationIcon>
+        <AssemblyName>Bust_C6</AssemblyName>
+        <RootNamespace>Bust_C6</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Icone.png" />
+        <Resource Include="Icone.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <None Remove="Icone.ico" />
+        <Resource Include="Icone.ico">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+    </ItemGroup>
+
+</Project>
