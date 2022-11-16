@@ -4,12 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Bust_C6.Views"
+             xmlns:extension="clr-namespace:Bust_C6.Extension"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <Button Background="Yellow" BorderBrush="Black" Content="Fichier C3A"/>
-            <TextBox ></TextBox>
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        
+            <Button Grid.Row="0" Grid.Column="0" Background="Yellow" BorderBrush="Black" Content="Fichier C3A"/>
+            <TextBox Grid.Row="0" Grid.Column="1" MaxLines="1" extension:TextBoxExtensions.Placeholder="yolo"/>
+        </Grid>
+        
     </StackPanel>
 </UserControl>
