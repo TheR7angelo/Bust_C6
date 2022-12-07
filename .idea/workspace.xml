@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b1b344b1-9ffe-421e-9e3d-afaf2ad83d6e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/C3AReader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/C6Reader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Libs/Xlsx/Types/SInseeApp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bust C6.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bust C6/Bust C6.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6/Bust C6.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/MainWorker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/MainWorker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Reader/C3A.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Reader/C6.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Reader/Reader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/Reader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Worker.cs" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2Iad4Fgd3bNBpLNokt3xp4wYGRb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/ZP6177/Downloads/correspondance-code-insee-code-postal (2).csv"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+</project>
