@@ -26,4 +26,8 @@
         </Resource>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Libs\Libs.csproj" />
+    </ItemGroup>
+
 </Project>

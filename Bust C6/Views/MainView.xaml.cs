@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Libs;
 using Ookii.Dialogs.Wpf;
 
 namespace Bust_C6.Views;
@@ -64,5 +65,23 @@ public partial class MainView
 
     private void UIElement_OnPreviewDragOver(object sender, DragEventArgs e) => e.Handled = true;
 
+    private async void ButtonStartWork_OnClick(object sender, RoutedEventArgs e)
+    {
+        var c3A = TextBoxC3A.Text;
+        var c6 = TextBoxC6.Text;
+
+        if (c3A.Equals(string.Empty) || c6.Equals(string.Empty))
+        {
+            MessageBox.Show("Un des chemins d'accès n'est pas remplit");
+        }
+        else
+        {
+            var worker = new MainWorker(c3A, c6);
+            await worker.Start();
+            
+        }
+    }
+    
     #endregion
+    
 }

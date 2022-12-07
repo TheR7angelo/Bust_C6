@@ -1,10 +1,10 @@
 ﻿using OfficeOpenXml;
 
-namespace Libs.Xlsx.Reader;
+namespace Libs.Xlsx.Readers;
 
 public class Reader
 {
-    protected ExcelPackage Book { get; }
+    protected internal ExcelPackage Book { get; }
     
     public Reader(string file)
     {
