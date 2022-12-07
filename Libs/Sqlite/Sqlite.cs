@@ -8,10 +8,11 @@ public class Sqlite
     
     public Sqlite()
     {
-        Connection = new SQLiteConnection(".\\Sqlite\\data.sqlite");
+        Connection = new SQLiteConnection($"Data Source={Path.GetFullPath(".\\Sqlite\\data.sqlite")}");
+        Connection.Open();
     }
 
-    public string? GetCityNameByInsee(int insee)
+    public string? GetCityNameByInsee(long insee)
     {
         var result = string.Empty;
         var cmd = $"SELECT \"Commune\" FROM t_insee_postal WHERE \"Code INSEE\"={insee}";

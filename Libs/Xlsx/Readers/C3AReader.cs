@@ -18,20 +18,16 @@ public class C3AReader : Reader
         var apps = tenant.Result.Concat(abouti.Result).Distinct();
 
         var results = new List<SInseeApp>();
-        await Parallel.ForEachAsync(apps, (appInsee, _) =>
+        foreach (var appInsee in apps)
         {
             var app = appInsee.Split('/');
             var insee = Convert.ToInt32(app[0]);
-            
             results.Add(new SInseeApp
             {
                 Insee = insee,
                 App = app[1]
             });
-            
-            return default;
-        });
-
+        }
         return results.GroupBy(s => s.Insee);
     }
     

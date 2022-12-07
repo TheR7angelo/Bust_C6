@@ -37,8 +37,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Sqlite\Data" />
-      <AdditionalFiles Include="Sqlite\Data">
+      <None Remove="Sqlite\Data.sqlite" />
+      <AdditionalFiles Include="Sqlite\Data.sqlite">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
     </ItemGroup>

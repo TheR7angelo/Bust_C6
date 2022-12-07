@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1b344b1-9ffe-421e-9e3d-afaf2ad83d6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Libs/Sqlite/Sqlite.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7f3a02d3-f6f9-44ff-830e-6aca5d5df049.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7f3a02d3-f6f9-44ff-830e-6aca5d5df049.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Libs/Libs.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/Libs.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Libs/Sqlite/Data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/MainWorker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/MainWorker.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
