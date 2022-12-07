@@ -36,7 +36,7 @@
         
         <!-- Body -->
         <Grid Grid.Row="0">
-            <views:MainView/>
+            <views:MainView Margin="7"/>
         </Grid>
         
         <!-- Footer -->

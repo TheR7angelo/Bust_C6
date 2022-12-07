@@ -31,4 +31,8 @@
       <Folder Include="obj\Debug\net7.0\refint" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="EPPlus" Version="6.1.1" />
+    </ItemGroup>
+
 </Project>

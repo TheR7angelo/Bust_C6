@@ -8,18 +8,24 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-        <Grid>
+        <Grid AllowDrop="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        
-            <Button Grid.Row="0" Grid.Column="0" Background="Yellow" BorderBrush="Black" Content="Fichier C3A"/>
-            <TextBox Grid.Row="0" Grid.Column="1" MaxLines="1" extension:TextBoxExtensions.Placeholder="yolo"/>
+            
+            <Button Grid.Row="0" Grid.Column="0" Uid="C3A" Background="Yellow" BorderBrush="Black" Content="Fichier C3A" Click="ButtonGetFile_OnClick" Drop="UIElement_OnDrop"/>
+            <TextBox x:Name="TextBoxC3A" Grid.Row="0" Grid.Column="1" Uid="C3A" IsReadOnly="True" Drop="UIElement_OnDrop" PreviewDragOver="UIElement_OnPreviewDragOver" extension:TextBoxExtensions.Placeholder="Merci de sélection une fiche C3A"/>
+            
+            <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="7" BorderThickness="7" BorderBrush="Black"/>
+            
+            <Button Grid.Row="2" Grid.Column="0" Uid="C6" Background="Yellow" BorderBrush="Black" Content="Fichier C6" Click="ButtonGetFile_OnClick" Drop="UIElement_OnDrop"/>
+            <TextBox x:Name="TextBoxC6" Grid.Row="2" Grid.Column="1" Uid="C6" IsReadOnly="True" Drop="UIElement_OnDrop" PreviewDragOver="UIElement_OnPreviewDragOver" extension:TextBoxExtensions.Placeholder="Merci de sélection une fiche C6"/>
         </Grid>
         
     </StackPanel>

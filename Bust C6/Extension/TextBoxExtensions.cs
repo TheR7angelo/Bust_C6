@@ -44,30 +44,30 @@ public static class TextBoxExtensions
     }
 
     [AttachedPropertyBrowsableForType(typeof(TextBox))]
-    public static void SetPlaceholder(DependencyObject element, string value)
+    public static void SetPlaceholder(DependencyObject element, string? value)
     {
         element.SetValue(PlaceholderProperty, value);
     }
 
     [AttachedPropertyBrowsableForType(typeof(TextBox))]
-    public static string GetPlaceholder(DependencyObject element)
+    public static string GetPlaceholder(DependencyObject? element)
     {
-        return (string)element.GetValue(PlaceholderProperty);
+        return (string)element?.GetValue(PlaceholderProperty)!;
     }
 
-    private static void ShowPlaceholder(TextBox textBox)
+    private static void ShowPlaceholder(TextBox? textBox)
     {
-        if (string.IsNullOrWhiteSpace(textBox.Text))
+        if (string.IsNullOrWhiteSpace(textBox?.Text))
         {
-            textBox.Text = GetPlaceholder(textBox);
+            textBox!.Text = GetPlaceholder(textBox);
         }
     }
 
-    private static void HidePlaceholder(TextBox textBox)
+    private static void HidePlaceholder(TextBox? textBox)
     {
         var placeholderText = GetPlaceholder(textBox);
 
-        if (textBox.Text == placeholderText)
+        if (textBox!.Text == placeholderText)
             textBox.Text = string.Empty;
     }
 }
