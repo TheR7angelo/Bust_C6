@@ -33,6 +33,14 @@
 
     <ItemGroup>
       <PackageReference Include="EPPlus" Version="6.1.1" />
+      <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Sqlite\Data" />
+      <AdditionalFiles Include="Sqlite\Data">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
 </Project>

@@ -1316,25 +1316,94 @@
     <table id="482" parent="166" name="sqlite_master">
       <System>1</System>
     </table>
-    <column id="483" parent="482" name="type">
+    <table id="483" parent="166" name="t_insee_postal"/>
+    <column id="484" parent="482" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="484" parent="482" name="name">
+    <column id="485" parent="482" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="485" parent="482" name="tbl_name">
+    <column id="486" parent="482" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="486" parent="482" name="rootpage">
+    <column id="487" parent="482" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="487" parent="482" name="sql">
+    <column id="488" parent="482" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
+    </column>
+    <column id="489" parent="483" name="Code INSEE">
+      <DasType>TEXT|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="490" parent="483" name="Code Postal">
+      <DasType>TEXT|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="491" parent="483" name="Commune">
+      <DasType>TEXT|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="492" parent="483" name="Département">
+      <DasType>TEXT|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="493" parent="483" name="Région">
+      <DasType>TEXT|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="494" parent="483" name="Statut">
+      <DasType>TEXT|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="495" parent="483" name="Altitude Moyenne">
+      <DasType>REAL|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <column id="496" parent="483" name="Superficie">
+      <DasType>REAL|0s</DasType>
+      <Position>8</Position>
+    </column>
+    <column id="497" parent="483" name="Population">
+      <DasType>REAL|0s</DasType>
+      <Position>9</Position>
+    </column>
+    <column id="498" parent="483" name="geo_point_2d">
+      <DasType>TEXT|0s</DasType>
+      <Position>10</Position>
+    </column>
+    <column id="499" parent="483" name="geo_shape">
+      <DasType>TEXT|0s</DasType>
+      <Position>11</Position>
+    </column>
+    <column id="500" parent="483" name="ID Geofla">
+      <DasType>INTEGER|0s</DasType>
+      <Position>12</Position>
+    </column>
+    <column id="501" parent="483" name="Code Commune">
+      <DasType>INTEGER|0s</DasType>
+      <Position>13</Position>
+    </column>
+    <column id="502" parent="483" name="Code Canton">
+      <DasType>INTEGER|0s</DasType>
+      <Position>14</Position>
+    </column>
+    <column id="503" parent="483" name="Code Arrondissement">
+      <DasType>INTEGER|0s</DasType>
+      <Position>15</Position>
+    </column>
+    <column id="504" parent="483" name="Code Département">
+      <DasType>TEXT|0s</DasType>
+      <Position>16</Position>
+    </column>
+    <column id="505" parent="483" name="Code Région">
+      <DasType>INTEGER|0s</DasType>
+      <Position>17</Position>
     </column>
   </database-model>
 </dataSource>

@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b1b344b1-9ffe-421e-9e3d-afaf2ad83d6e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/C3AReader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/C6Reader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Libs/Xlsx/Types/SInseeApp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bust C6.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bust C6/Bust C6.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6/Bust C6.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bust C6/Views/MainView.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Libs/MainWorker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/MainWorker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Reader/C3A.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Reader/C6.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Reader/Reader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/Reader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Worker.cs" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Libs/Sqlite/Sqlite.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7f3a02d3-f6f9-44ff-830e-6aca5d5df049.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7f3a02d3-f6f9-44ff-830e-6aca5d5df049.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/Libs.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/Libs.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/Sqlite/Data" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +29,7 @@
     "RunOnceActivity.OpenDatabaseViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/ZP6177/Downloads/correspondance-code-insee-code-postal (2).csv"
+    "last_opened_file_path": "C:/Users/ZP6177"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
