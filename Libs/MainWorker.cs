@@ -30,15 +30,17 @@ public class MainWorker
         // var c6 = new C6Reader(C6Path);
 
         var apps = await c3A.GetAllAppsByInsee();
-        var listC6S = apps.Select(s => s.Key).Select(insee => new SInseeC6 { Insee = insee, C6Reader = new C6Reader(C6Path) }).ToList();
 
-        await Parallel.ForEachAsync(listC6S, (c6S, _) =>
+        var loop = 0;
+        await Parallel.ForEachAsync(apps, (app, _) =>
         {
-            var c6 = c6S.C6Reader;
-            var insee = c6S.Insee;
+            var c6 = new C6Reader(C6Path);
+            var insee = app.Key;
             var city = Db.GetCityNameByInsee(insee);
             
-            Console.WriteLine($"{insee} => {city}");
+
+
+            Interlocked.Increment(ref loop);
             
             return default;
         });

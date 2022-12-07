@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Libs;
 using Ookii.Dialogs.Wpf;
@@ -76,9 +77,13 @@ public partial class MainView
         }
         else
         {
-            var worker = new MainWorker(c3A, c6);
-            await worker.Start();
-            
+            await Task.Run(async () =>
+            {
+                var worker = new MainWorker(c3A, c6);
+                await worker.Start();
+            });
+
+
         }
     }
     
