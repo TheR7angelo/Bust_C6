@@ -30,8 +30,8 @@ public class C3AReader : Reader
         }
         return results.GroupBy(s => s.Insee);
     }
-    
-    public Task<List<string>> GetAllApp(int col, int minRow)
+
+    private Task<List<string>> GetAllApp(int col, int minRow)
     {
         var results = new List<string>();
         var sheet = Book.Workbook.Worksheets["Commandes Fermes"];
