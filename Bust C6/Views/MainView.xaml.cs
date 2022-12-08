@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Libs;
@@ -74,12 +75,16 @@ public partial class MainView
         if (c3A.Equals(string.Empty) || c6.Equals(string.Empty))
         {
             MessageBox.Show("Un des chemins d'accès n'est pas remplit");
+            ProgressBar.IsIndeterminate = true;
         }
         else
         {
+            ProgressBar.IsIndeterminate = false;
+            var mainProgress = new Progress<int>(percent => ProgressBar.Value = percent);
+            
             await Task.Run(async () =>
             {
-                var worker = new MainWorker(c3A, c6);
+                var worker = new MainWorker(c3A, c6, mainProgress);
                 await worker.Start();
             });
 
