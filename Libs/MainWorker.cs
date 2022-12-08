@@ -1,5 +1,4 @@
 ﻿using Libs.Xlsx.Readers;
-using Libs.Xlsx.Types;
 using OfficeOpenXml;
 
 namespace Libs;
@@ -26,23 +25,36 @@ public class MainWorker
 
     public async Task Start()
     {
-        var c3A = new C3AReader(C3APath);
-        // var c6 = new C6Reader(C6Path);
+        var path = Path.GetDirectoryName(C6Path);
+        var name = Path.GetFileNameWithoutExtension(C6Path);
+        var savePath = Path.Join(path,name);
 
-        var apps = await c3A.GetAllAppsByInsee();
+        var c3A = new C3AReader(C3APath);
+
+        var apps = (await c3A.GetAllAppsByInsee()).ToList();
 
         var loop = 0;
-        await Parallel.ForEachAsync(apps, (app, _) =>
+        var max = apps.Count;
+        
+        await Parallel.ForEachAsync(apps, async (app, token) =>
         {
             var c6 = new C6Reader(C6Path);
             var insee = app.Key;
             var city = Db.GetCityNameByInsee(insee);
-            
 
-
-            Interlocked.Increment(ref loop);
+            var allApp = app.Select(s => s.App).ToList();
             
-            return default;
+            await c6.Writecartridge(insee, city);
+            
+            var cleanFieldEntry = c6.CleanFields(allApp, insee);
+
+            await Task.WhenAll(cleanFieldEntry);
+
+            await c6.Book.SaveAsAsync($"{savePath}-{insee}.xlsx", token);
+            
+            var p = Interlocked.Increment(ref loop);
+            var pro = (int)((double)p / max * 100);
+            Progress?.Report(pro);
         });
     }
 }
