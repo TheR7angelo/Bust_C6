@@ -1,4 +1,6 @@
-﻿using OfficeOpenXml;
+﻿using System.Drawing;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace Libs.Xlsx.Readers;
 
@@ -56,14 +58,14 @@ public class C6Reader : Reader
         });
     }
 
-    public async Task CleanFields(List<string> app, int insee)
+    public async Task CleanFields(List<string> app)
     {
         if (FieldEntrys.Count.Equals(0)) return;
 
         await Parallel.ForEachAsync(FieldEntrys, (worksheet, _) =>
         {
             int? max = null;
-            var rowMax = worksheet.Dimension.End.Row;
+            var rowMax = worksheet!.Dimension.End.Row;
 
             for (var row = rowMax - 1; row > 8; row--)
             {
@@ -83,6 +85,44 @@ public class C6Reader : Reader
                     worksheet.DeleteRow(row, nbrDelteRow);
                     max = null;
                 }
+            }
+
+            return default;
+        });
+    }
+
+    public async Task CleanBackgroud()
+    {
+        if (FieldEntrys.Count.Equals(0)) return;
+
+        await Parallel.ForEachAsync(FieldEntrys, (worksheet, _) =>
+        {
+            var beige = ColorTranslator.FromHtml("#FFCC99");
+            var transparent = Color.Transparent;
+
+            var current = Color.Crimson; 
+            
+            int? min = null;
+            var rowMax = worksheet!.Dimension.End.Row;
+
+            for (var row = 9; row < rowMax; row++)
+            {
+                var name = worksheet.Cells[row, 1].Value;
+                if (name is null) continue;
+
+                if (min is null) min = row;
+                else
+                {
+                    current = current switch
+                    {
+                        { } c when c.Equals(beige) => transparent,
+                        _ => beige
+                    };
+                    worksheet.Cells[(int)min, 1, row-1, 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[(int)min, 1, row-1, 1].Style.Fill.BackgroundColor.SetColor(current);
+                    min = row;
+                }
+                
             }
 
             return default;
