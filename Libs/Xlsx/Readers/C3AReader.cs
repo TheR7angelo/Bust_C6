@@ -8,7 +8,7 @@ public class C3AReader : Reader
     {
     }
 
-    public async Task<IEnumerable<IGrouping<int, SInseeApp>>> GetAllAppsByInsee()
+    public async Task<List<SInseeApp>> GetAllAppsByInsee()
     {
         var tenant = GetAllApp(2, 15);
         var abouti = GetAllApp(4, 15);
@@ -20,15 +20,24 @@ public class C3AReader : Reader
         var results = new List<SInseeApp>();
         foreach (var appInsee in apps)
         {
+            if (appInsee is null) continue;
+
             var app = appInsee.Split('/');
             var insee = Convert.ToInt32(app[0]);
+            
+            if (app[1].Equals("836500"))
+            {
+                Console.WriteLine("erreur");
+            }
+            
             results.Add(new SInseeApp
             {
                 Insee = insee,
                 App = app[1]
             });
         }
-        return results.GroupBy(s => s.Insee);
+        
+        return results;
     }
 
     private Task<List<string>> GetAllApp(int col, int minRow)
