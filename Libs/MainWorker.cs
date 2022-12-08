@@ -40,21 +40,28 @@ public class MainWorker
         {
             var c6 = new C6Reader(C6Path);
             var insee = app.Key;
-            var city = Db.GetCityNameByInsee(insee);
-
+            
             var allApp = app.Select(s => s.App).ToList();
-            
-            await c6.Writecartridge(insee, city);
-            
-            await c6.CleanFields(allApp);
 
-            await c6.CleanBackgroud();
+            var clearExport = ClearExport(c6, insee, allApp);
+            var clearPicture = c6.CleanPicture(allApp);
 
+            await Task.WhenAll(clearExport, clearPicture);
+            
             await c6.Book.SaveAsAsync($"{savePath}-{insee}.xlsx", token);
             
             var p = Interlocked.Increment(ref loop);
             var pro = (int)((double)p / max * 100);
             Progress?.Report(pro);
         });
+    }
+
+    private async Task ClearExport(C6Reader c6, int insee, List<string> allApp)
+    {
+        var city = Db.GetCityNameByInsee(insee);
+
+        await c6.Writecartridge(insee, city);
+        await c6.CleanFields(allApp);
+        await c6.CleanBackgroud();
     }
 }
