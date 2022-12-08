@@ -20,16 +20,9 @@ public class C3AReader : Reader
         var results = new List<SInseeApp>();
         foreach (var appInsee in apps)
         {
-            if (appInsee is null) continue;
-
             var app = appInsee.Split('/');
             var insee = Convert.ToInt32(app[0]);
-            
-            if (app[1].Equals("836500"))
-            {
-                Console.WriteLine("erreur");
-            }
-            
+
             results.Add(new SInseeApp
             {
                 Insee = insee,
