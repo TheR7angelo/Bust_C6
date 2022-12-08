@@ -46,9 +46,9 @@ public class MainWorker
             
             await c6.Writecartridge(insee, city);
             
-            var cleanFieldEntry = c6.CleanFields(allApp, insee);
+            await c6.CleanFields(allApp);
 
-            await Task.WhenAll(cleanFieldEntry);
+            await c6.CleanBackgroud();
 
             await c6.Book.SaveAsAsync($"{savePath}-{insee}.xlsx", token);
             
