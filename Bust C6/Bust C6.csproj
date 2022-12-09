@@ -9,6 +9,8 @@
         <AssemblyName>Bust_C6</AssemblyName>
         <RootNamespace>Bust_C6</RootNamespace>
         <Version>1.5.0</Version>
+        <Company>Bust C6</Company>
+        <Product>Bust C6</Product>
     </PropertyGroup>
 
     <ItemGroup>
