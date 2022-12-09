@@ -6,11 +6,12 @@
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>Icone.ico</ApplicationIcon>
-        <AssemblyName>Bust_C6</AssemblyName>
         <RootNamespace>Bust_C6</RootNamespace>
         <Version>1.5.0</Version>
         <Company>Bust C6</Company>
         <Product>Bust C6</Product>
+        <PackageId>Bust C6</PackageId>
+        <Authors>ZP6177</Authors>
     </PropertyGroup>
 
     <ItemGroup>
