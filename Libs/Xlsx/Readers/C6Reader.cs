@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using OfficeOpenXml;
+using OfficeOpenXml.Drawing;
 using OfficeOpenXml.Style;
 
 namespace Libs.Xlsx.Readers;
@@ -7,7 +8,7 @@ namespace Libs.Xlsx.Readers;
 // var id = Environment.CurrentManagedThreadId;
 // var sheetName = worksheet!.Name;
 
-public class C6Reader : Reader
+public class C6Reader : Reader, IDisposable
 {
     private const string FieldEntryName = "Saisies terrain";
     private const string BasesName = "Bases";
@@ -19,6 +20,8 @@ public class C6Reader : Reader
     
     public List<ExcelWorksheet?> FieldEntrys { get; }
 
+    private ExcelDrawings Drawings { get; set; }
+    
     public C6Reader(string file) : base(file)
     {
         FieldEntry = Book.Workbook.Worksheets[FieldEntryName];
@@ -27,6 +30,8 @@ public class C6Reader : Reader
 
         FieldEntrys = new List<ExcelWorksheet?>(Exports);
         FieldEntrys.Insert(0, FieldEntry);
+
+        Drawings = Picture.Drawings;
     }
 
     #region Actions
@@ -62,7 +67,7 @@ public class C6Reader : Reader
     {
         if (FieldEntrys.Count.Equals(0)) return;
 
-        await Parallel.ForEachAsync(FieldEntrys, (worksheet, token) =>
+        await Parallel.ForEachAsync(FieldEntrys, (worksheet, _) =>
         {
             var rowMax = worksheet!.Dimension.End.Row;
             var max = rowMax;
@@ -74,7 +79,7 @@ public class C6Reader : Reader
                 var nameStr = name.ToString();
 
                 var xname = string.Empty;
-                if (nameStr[0].Equals('0')) xname = nameStr[1..];
+                if (nameStr![0].Equals('0')) xname = nameStr[1..];
 
                 if (app.Contains(nameStr) || app.Contains(xname))
                 {
@@ -87,32 +92,7 @@ public class C6Reader : Reader
                 max = row - 1;
             }
             return default;
-        }); 
-        // foreach (var worksheet in FieldEntrys)
-        // {
-        //     var rowMax = worksheet!.Dimension.End.Row;
-        //     var max = rowMax;
-        //     
-        //     for (var row = rowMax - 1; row > 8; row--)
-        //     {
-        //         var name = worksheet.Cells[row, 1].Value;
-        //         if (name is null) continue;
-        //         var nameStr = name.ToString();
-        //
-        //         var xname = string.Empty;
-        //         if (nameStr[0].Equals('0')) xname = nameStr[1..];
-        //
-        //         if (app.Contains(nameStr) || app.Contains(xname))
-        //         {
-        //             max = row - 1;
-        //             continue;
-        //         }
-        //
-        //         var deleteRow = Math.Abs(max - row + 1);
-        //         worksheet.DeleteRow(row, deleteRow);
-        //         max = row - 1;
-        //     }
-        // }
+        });
     }
 
     public async Task CleanBackgroud()
@@ -161,66 +141,68 @@ public class C6Reader : Reader
         });
     }
 
-    public Task CleanPicture(List<string> app)
+    public Task<IEnumerable<string>> CleanPicture(List<string> app)
     {
         var rowMax = Picture!.Dimension.End.Row;
-        var delete = false; 
-        
-        for (var row = rowMax - 1; row > 1; row--)
+
+        var uris = new List<string>();
+        for (var row = rowMax - 1; row > 8; row--)
         {
             var name = Picture.Cells[row, 1].Value;
-            if (name is null && !delete) continue;
-            if (delete)
-            {
-                delete = false;
-                for (var i = 1; i <= 4; i++) DeletePicture(row, i);
-                
-                Picture.DeleteRow(row, 2);
-            }
-            else
-            {
-                var nameStr = name!.ToString()!;
-                nameStr = nameStr.Split('_')[0];
-                var xname = string.Empty;
-                if (nameStr[0].Equals('0')) xname = nameStr[1..];
-                
-                if (app.Contains(nameStr) || app.Contains(xname)) continue;
+            if (name is null) continue;
+            var nameStr = name.ToString();
 
-                delete = true;
+            var xname = string.Empty;
+            if (nameStr![0].Equals('0')) xname = nameStr[1..];
+
+            if (app.Contains(nameStr) || app.Contains(xname))
+            {
+                continue;
+            }
+
+            for (var col = 1; col <= 4; col++)
+            {
+                var us = DeletePicture(row - 1, col);
+                if (us is not null) uris.AddRange(us);
             }
         }
 
-        return Task.CompletedTask;
+        return Task.FromResult<IEnumerable<string>>(uris);
     }
     
     #endregion
 
     #region Function
 
-    private void DeletePicture(int row, int col)
+    private IEnumerable<string>? DeletePicture(int row, int col)
     {
-        var pictures = Picture!.Drawings;
-        var pics = pictures.Where(s => s.From.Row.Equals(row) && s.From.Column.Equals(col)).ToList();
-        if (!pics.Any()) return;
+        var pics = Drawings.Where(s => s.From.Row.Equals(row-1) && s.From.Column.Equals(col-1)).ToList();
+        if (!pics.Any()) return null;
 
+        var uris = new List<string>();
         foreach (var pic in pics)
         {
-            Picture.Drawings.Remove(pic);
+            var uri = GetPictureUri(pic as ExcelPicture);
+            if (uri is not null) uris.Add(uri);
+            
+            Drawings.Remove(pic);
         }
+
+        return uris;
+    }
+
+    private static string? GetPictureUri(ExcelPicture? picture)
+    {
+        var uri = picture?.GetType().GetInterface("IPictureContainer")?.GetProperty("UriPic")?.GetValue(picture, null) as Uri;
+        return uri?.OriginalString;
     }
 
     #endregion
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+    public void Dispose()
+    {
+        Book.Dispose();
+        GC.Collect();
+    }
 }

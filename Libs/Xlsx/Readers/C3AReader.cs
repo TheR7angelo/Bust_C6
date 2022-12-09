@@ -2,7 +2,7 @@
 
 namespace Libs.Xlsx.Readers;
 
-public class C3AReader : Reader
+public class C3AReader : Reader, IDisposable
 {
     public C3AReader(string file) : base(file)
     {
@@ -20,6 +20,7 @@ public class C3AReader : Reader
         var results = new List<SInseeApp>();
         foreach (var appInsee in apps)
         {
+            if (appInsee is null) continue;
             var app = appInsee.Split('/');
             var insee = Convert.ToInt32(app[0]);
 
@@ -50,5 +51,11 @@ public class C3AReader : Reader
         });
         
         return Task.FromResult(results.Distinct().ToList());
+    }
+
+    public void Dispose()
+    {
+        Book.Dispose();
+        GC.Collect();
     }
 }
