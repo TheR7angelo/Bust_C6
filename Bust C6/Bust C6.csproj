@@ -1,18 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>net7.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>Icone.ico</ApplicationIcon>
         <AssemblyName>Bust_C6</AssemblyName>
         <RootNamespace>Bust_C6</RootNamespace>
+        <Version>1.5.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="MahApps.Metro" Version="2.4.9" />
         <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+        <PackageReference Include="Syroot.Windows.IO.KnownFolders" Version="1.3.0" />
+        <PackageReference Include="UpdateManager" Version="1.1.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,6 +31,13 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Libs\Libs.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Icone.svg" />
+      <AdditionalFiles Include="Icone.svg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
 </Project>

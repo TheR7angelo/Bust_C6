@@ -40,7 +40,7 @@
         </Grid>
         
         <!-- Footer -->
-        <Grid Grid.Row="1" Background="Gray">
+        <Grid Grid.Row="1" x:Name="GridFooter" Background="Gray">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Label Padding="5, 0, 0, 0" Content="Version : " Foreground="White"/>
                 <Label x:Name="LabelVersion" Padding="0" Foreground="White"/>

@@ -1,4 +1,6 @@
-﻿namespace Bust_C6
+﻿using System.Windows.Media;
+
+namespace Bust_C6
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -9,7 +11,17 @@
         {
             InitializeComponent();
 
-            LabelVersion.Content = "0.5";
+            if (Function.GetVersion.GetUpdate())
+            {
+                Function.GetVersion.Update();
+                GridFooter.Background = Brushes.Crimson;
+            }
+            else
+            {
+                GridFooter.Background = Brushes.ForestGreen;
+            }
+
+            LabelVersion.Content = Function.AssemblyCl.GetVersionDeploy().ToString();
         }
     }
 }
