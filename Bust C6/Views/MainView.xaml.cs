@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -81,14 +82,24 @@ public partial class MainView
         {
             ProgressBar.IsIndeterminate = false;
             var mainProgress = new Progress<int>(percent => ProgressBar.Value = percent);
-            
+            IsEnable(false);
             await Task.Run(async () =>
             {
                 var worker = new MainWorker(c3A, c6, mainProgress);
                 await worker.Start();
             });
+            IsEnable(true);
 
 
+        }
+    }
+
+    private void IsEnable(bool enable)
+    {
+        foreach (var element in new List<UIElement> 
+                     { ButtonRun, ButtonC6, ButtonC3A, TextBoxC3A, TextBoxC6 })
+        {
+            element.IsEnabled = enable;
         }
     }
     
