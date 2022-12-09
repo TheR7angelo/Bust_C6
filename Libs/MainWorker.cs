@@ -21,7 +21,7 @@ public class MainWorker
         C6Path = c6Path;
         Progress = progress;
         
-        
+        progress?.Report(1);
     }
 
     public async Task Start()
