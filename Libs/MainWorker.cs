@@ -1,4 +1,5 @@
-﻿using Libs.Xlsx.Readers;
+﻿using System.IO.Compression;
+using Libs.Xlsx.Readers;
 using OfficeOpenXml;
 
 namespace Libs;
@@ -29,31 +30,36 @@ public class MainWorker
         var name = Path.GetFileNameWithoutExtension(C6Path);
         var savePath = Path.Join(path,name);
 
-        var c3A = new C3AReader(C3APath);
+        using var c3A = new C3AReader(C3APath);
 
-        var apps = (await c3A.GetAllAppsByInsee()).ToList();
-
-        var loop = 0;
-        var max = apps.Count;
+        var apps = await c3A.GetAllAppsByInsee();
         
-        await Parallel.ForEachAsync(apps, async (app, token) =>
+        var loop = 0;
+        var insees = apps.Select(s => s.Insee).DistinctBy(s => s).ToList();
+        var max = insees.Count;
+
+        await Parallel.ForEachAsync(insees, async (insee, token) =>
         {
-            var c6 = new C6Reader(C6Path);
-            var insee = app.Key;
-            
-            var allApp = app.Select(s => s.App).ToList();
+            using var c6 = new C6Reader(C6Path);
+
+            var allApp = apps.Where(s => s.Insee.Equals(insee)).Select(s => s.App).ToList();
 
             var clearExport = ClearExport(c6, insee, allApp);
             var clearPicture = c6.CleanPicture(allApp);
 
             await Task.WhenAll(clearExport, clearPicture);
-            
-            await c6.Book.SaveAsAsync($"{savePath}-{insee}.xlsx", token);
+
+            var filePath = $"{savePath}-{insee}.xlsx";
+            await c6.Book.SaveAsAsync(filePath, token);
+
+            await ClearZip(filePath, clearPicture.Result);
             
             var p = Interlocked.Increment(ref loop);
             var pro = (int)((double)p / max * 100);
             Progress?.Report(pro);
         });
+        
+        Console.WriteLine("end");
     }
 
     private async Task ClearExport(C6Reader c6, int insee, List<string> allApp)
@@ -61,7 +67,20 @@ public class MainWorker
         var city = Db.GetCityNameByInsee(insee);
 
         await c6.Writecartridge(insee, city);
-        await c6.CleanFields(allApp);
+        await c6.CleanFields(allApp, insee);
         await c6.CleanBackgroud();
+    }
+
+    private Task ClearZip(string filePath, IEnumerable<string> pictures)
+    {
+        using var archive = ZipFile.Open(filePath, ZipArchiveMode.Update);
+
+        foreach (var picture in pictures)
+        {
+            var entry = archive.Entries.FirstOrDefault(s => s.FullName.Equals(picture));
+            entry?.Delete();
+        }
+
+        return Task.CompletedTask;
     }
 }

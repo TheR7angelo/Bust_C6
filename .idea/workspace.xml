@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1b344b1-9ffe-421e-9e3d-afaf2ad83d6e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Libs/MainWorker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/MainWorker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Readers/C3AReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/C3AReader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Libs/Xlsx/Readers/C6Reader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/Xlsx/Readers/C6Reader.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
