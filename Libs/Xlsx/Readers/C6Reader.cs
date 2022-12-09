@@ -58,44 +58,68 @@ public class C6Reader : Reader
         });
     }
 
-    public async Task CleanFields(List<string> app)
+    public async Task CleanFields(List<string> app, int insee)
     {
         if (FieldEntrys.Count.Equals(0)) return;
 
-        await Parallel.ForEachAsync(FieldEntrys, (worksheet, _) =>
+        await Parallel.ForEachAsync(FieldEntrys, (worksheet, token) =>
         {
-            int? max = null;
             var rowMax = worksheet!.Dimension.End.Row;
-
+            var max = rowMax;
+            
             for (var row = rowMax - 1; row > 8; row--)
             {
                 var name = worksheet.Cells[row, 1].Value;
                 if (name is null) continue;
+                var nameStr = name.ToString();
 
-                var nameStr = name.ToString()!;
                 var xname = string.Empty;
                 if (nameStr[0].Equals('0')) xname = nameStr[1..];
 
-                if (app.Contains(nameStr) || app.Contains(xname)) continue;
-
-                if (max is null) max = row;
-                else
+                if (app.Contains(nameStr) || app.Contains(xname))
                 {
-                    var nbrDelteRow = (int)max - row;
-                    worksheet.DeleteRow(row, nbrDelteRow);
-                    max = null;
+                    max = row - 1;
+                    continue;
                 }
-            }
 
+                var deleteRow = Math.Abs(max - row + 1);
+                worksheet.DeleteRow(row, deleteRow);
+                max = row - 1;
+            }
             return default;
-        });
+        }); 
+        // foreach (var worksheet in FieldEntrys)
+        // {
+        //     var rowMax = worksheet!.Dimension.End.Row;
+        //     var max = rowMax;
+        //     
+        //     for (var row = rowMax - 1; row > 8; row--)
+        //     {
+        //         var name = worksheet.Cells[row, 1].Value;
+        //         if (name is null) continue;
+        //         var nameStr = name.ToString();
+        //
+        //         var xname = string.Empty;
+        //         if (nameStr[0].Equals('0')) xname = nameStr[1..];
+        //
+        //         if (app.Contains(nameStr) || app.Contains(xname))
+        //         {
+        //             max = row - 1;
+        //             continue;
+        //         }
+        //
+        //         var deleteRow = Math.Abs(max - row + 1);
+        //         worksheet.DeleteRow(row, deleteRow);
+        //         max = row - 1;
+        //     }
+        // }
     }
 
     public async Task CleanBackgroud()
     {
         if (FieldEntrys.Count.Equals(0)) return;
 
-        await Parallel.ForEachAsync(FieldEntrys, (worksheet, _) =>
+        await Parallel.ForEachAsync(Exports, (worksheet, _) =>
         {
             var beige = ColorTranslator.FromHtml("#FFCC99");
             var transparent = Color.Transparent;
@@ -118,7 +142,15 @@ public class C6Reader : Reader
                         { } c when c.Equals(beige) => transparent,
                         _ => beige
                     };
-                    worksheet.Cells[(int)min, 1, row-1, 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    try
+                    {
+                        worksheet.Cells[(int)min, 1, row-1, 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    }
+                    catch (Exception)
+                    {
+                        // pass
+                    }
+                    
                     worksheet.Cells[(int)min, 1, row-1, 1].Style.Fill.BackgroundColor.SetColor(current);
                     min = row;
                 }
@@ -129,9 +161,55 @@ public class C6Reader : Reader
         });
     }
 
+    public Task CleanPicture(List<string> app)
+    {
+        var rowMax = Picture!.Dimension.End.Row;
+        var delete = false; 
+        
+        for (var row = rowMax - 1; row > 1; row--)
+        {
+            var name = Picture.Cells[row, 1].Value;
+            if (name is null && !delete) continue;
+            if (delete)
+            {
+                delete = false;
+                for (var i = 1; i <= 4; i++) DeletePicture(row, i);
+                
+                Picture.DeleteRow(row, 2);
+            }
+            else
+            {
+                var nameStr = name!.ToString()!;
+                nameStr = nameStr.Split('_')[0];
+                var xname = string.Empty;
+                if (nameStr[0].Equals('0')) xname = nameStr[1..];
+                
+                if (app.Contains(nameStr) || app.Contains(xname)) continue;
+
+                delete = true;
+            }
+        }
+
+        return Task.CompletedTask;
+    }
+    
     #endregion
-    
-    
+
+    #region Function
+
+    private void DeletePicture(int row, int col)
+    {
+        var pictures = Picture!.Drawings;
+        var pics = pictures.Where(s => s.From.Row.Equals(row) && s.From.Column.Equals(col)).ToList();
+        if (!pics.Any()) return;
+
+        foreach (var pic in pics)
+        {
+            Picture.Drawings.Remove(pic);
+        }
+    }
+
+    #endregion
     
     
     
