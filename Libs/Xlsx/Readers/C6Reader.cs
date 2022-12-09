@@ -14,13 +14,13 @@ public class C6Reader : Reader, IDisposable
     private const string BasesName = "Bases";
     private const string PictureName = "Photos";
 
-    public ExcelWorksheet? FieldEntry { get; }
-    public ExcelWorksheet? Picture { get; }
-    public List<ExcelWorksheet?> Exports { get; }
-    
-    public List<ExcelWorksheet?> FieldEntrys { get; }
+    private ExcelWorksheet? FieldEntry { get; }
+    private ExcelWorksheet? Picture { get; }
+    private List<ExcelWorksheet?> Exports { get; }
 
-    private ExcelDrawings Drawings { get; set; }
+    private List<ExcelWorksheet?> FieldEntrys { get; }
+
+    private ExcelDrawings Drawings { get; }
     
     public C6Reader(string file) : base(file)
     {
@@ -144,27 +144,29 @@ public class C6Reader : Reader, IDisposable
     public Task<IEnumerable<string>> CleanPicture(List<string> app)
     {
         var rowMax = Picture!.Dimension.End.Row;
-
         var uris = new List<string>();
+
         for (var row = rowMax - 1; row > 8; row--)
         {
             var name = Picture.Cells[row, 1].Value;
             if (name is null) continue;
+            
             var nameStr = name.ToString();
+            nameStr = nameStr!.Split('_')[0];
 
             var xname = string.Empty;
-            if (nameStr![0].Equals('0')) xname = nameStr[1..];
+            if (nameStr[0].Equals('0')) xname = nameStr[1..];
 
-            if (app.Contains(nameStr) || app.Contains(xname))
-            {
-                continue;
-            }
+            if (app.Contains(nameStr) || app.Contains(xname)) continue;
 
             for (var col = 1; col <= 4; col++)
             {
                 var us = DeletePicture(row - 1, col);
                 if (us is not null) uris.AddRange(us);
             }
+            Picture.Cells[row, 5].Value = $"{nameStr} while be delete";
+            // Picture.Cells[row-1, 5].Value = $"{nameStr} while be delete";
+            // Picture.DeleteRow(row-1, 2);
         }
 
         return Task.FromResult<IEnumerable<string>>(uris);

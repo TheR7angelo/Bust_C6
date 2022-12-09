@@ -19,12 +19,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <Button Grid.Row="0" Grid.Column="0" Uid="C3A" Background="Yellow" BorderBrush="Black" Content="Fichier C3A" Click="ButtonGetFile_OnClick" Drop="UIElement_OnDrop"/>
+            <Button Grid.Row="0" Grid.Column="0" x:Name="ButtonC3A" Uid="C3A" Background="Yellow" BorderBrush="Black" Content="Fichier C3A" Click="ButtonGetFile_OnClick" Drop="UIElement_OnDrop"/>
             <TextBox x:Name="TextBoxC3A" Grid.Row="0" Grid.Column="1" Uid="C3A" IsReadOnly="True" Drop="UIElement_OnDrop" PreviewDragOver="UIElement_OnPreviewDragOver" extension:TextBoxExtensions.Placeholder="Merci de sélection une fiche C3A"/>
             
             <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="7" BorderThickness="7" BorderBrush="Black"/>
             
-            <Button Grid.Row="2" Grid.Column="0" Uid="C6" Background="Yellow" BorderBrush="Black" Content="Fichier C6" Click="ButtonGetFile_OnClick" Drop="UIElement_OnDrop"/>
+            <Button Grid.Row="2" Grid.Column="0" x:Name="ButtonC6" Uid="C6" Background="Yellow" BorderBrush="Black" Content="Fichier C6" Click="ButtonGetFile_OnClick" Drop="UIElement_OnDrop"/>
             <TextBox x:Name="TextBoxC6" Grid.Row="2" Grid.Column="1" Uid="C6" IsReadOnly="True" Drop="UIElement_OnDrop" PreviewDragOver="UIElement_OnPreviewDragOver" extension:TextBoxExtensions.Placeholder="Merci de sélection une fiche C6"/>
         </Grid>
         
@@ -33,7 +33,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="Valider" Margin="3" Click="ButtonStartWork_OnClick"/>
+            <Button Grid.Row="0" x:Name="ButtonRun" Content="Valider" Margin="3" Click="ButtonStartWork_OnClick"/>
             <ProgressBar Grid.Row="1" x:Name="ProgressBar" IsIndeterminate="True" Minimum="0" Maximum="100"/>
         </Grid>
     </StackPanel>
