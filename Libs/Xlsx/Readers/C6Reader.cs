@@ -151,22 +151,22 @@ public class C6Reader : Reader, IDisposable
             var name = Picture.Cells[row, 1].Value;
             if (name is null) continue;
             
-            var nameStr = name.ToString();
-            nameStr = nameStr!.Split('_')[0];
+            var nameStr = name.ToString()!.Trim();
+            if (nameStr.Equals(string.Empty)) continue;
+
+            nameStr = nameStr.Split('_')[0];
 
             var xname = string.Empty;
             if (nameStr[0].Equals('0')) xname = nameStr[1..];
 
             if (app.Contains(nameStr) || app.Contains(xname)) continue;
 
-            for (var col = 1; col <= 4; col++)
+            for (var col = 0; col < 4; col++)
             {
-                var us = DeletePicture(row - 1, col);
+                var us = DeletePicture(row, col);
                 if (us is not null) uris.AddRange(us);
             }
-            Picture.Cells[row, 5].Value = $"{nameStr} while be delete";
-            // Picture.Cells[row-1, 5].Value = $"{nameStr} while be delete";
-            // Picture.DeleteRow(row-1, 2);
+            Picture.DeleteRow(row-1, 2);
         }
 
         return Task.FromResult<IEnumerable<string>>(uris);
@@ -178,9 +178,11 @@ public class C6Reader : Reader, IDisposable
 
     private IEnumerable<string>? DeletePicture(int row, int col)
     {
-        var pics = Drawings.Where(s => s.From.Row.Equals(row-1) && s.From.Column.Equals(col-1)).ToList();
-        if (!pics.Any()) return null;
+        var pics = GetPicture(row-1, col);
+        if (!pics.Any()) pics = GetPicture(row-2, col);
 
+        if (!pics.Any()) return null;
+        
         var uris = new List<string>();
         foreach (var pic in pics)
         {
@@ -192,6 +194,9 @@ public class C6Reader : Reader, IDisposable
 
         return uris;
     }
+
+    private List<ExcelDrawing> GetPicture(int row, int col) 
+        => Drawings.Where(s => s.From.Row.Equals(row-1) && s.From.Column.Equals(col)).ToList();
 
     private static string? GetPictureUri(ExcelPicture? picture)
     {
