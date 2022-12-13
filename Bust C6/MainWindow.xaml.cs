@@ -1,6 +1,7 @@
 ﻿using System.Windows.Media;
+using Burst_C6.Function;
 
-namespace Bust_C6
+namespace Burst_C6
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -11,9 +12,9 @@ namespace Bust_C6
         {
             InitializeComponent();
 
-            if (Function.GetVersion.GetUpdate())
+            if (GetVersion.GetUpdate())
             {
-                Function.GetVersion.Update();
+                GetVersion.Update();
                 GridFooter.Background = Brushes.Crimson;
             }
             else

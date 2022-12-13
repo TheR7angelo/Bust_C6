@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bust_C6.Function;
+namespace Burst_C6.Function;
 
 public static class AssemblyCl
 {

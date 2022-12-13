@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using Libs;
 using Ookii.Dialogs.Wpf;
 
-namespace Bust_C6.Views;
+namespace Burst_C6.Views;
 
 public partial class MainView
 {

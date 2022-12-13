@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Bust_C6.Extension;
+namespace Burst_C6.Extension;
 
 public static class TextBoxExtensions
 {

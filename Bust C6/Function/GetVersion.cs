@@ -7,15 +7,15 @@ using Ookii.Dialogs.Wpf;
 using Syroot.Windows.IO;
 using UpdateManager;
 
-namespace Bust_C6.Function;
+namespace Burst_C6.Function;
 
 public static class GetVersion
 {
-    private static readonly bool SignleFile = true;
+    private static readonly bool SignleFile = false;
     private static string NewVersion { get; set; } = string.Empty;
     private static string NewVersionCopy { get; set; } = string.Empty;
 
-    private static readonly Manager Manager = new Manager("T:\\- 4 Suivi Appuis\\18-Partage\\BARRENTO ANTUNES Raphael\\7_CSharp\\Centre macro.db");
+    private static readonly Manager Manager = new ("T:\\- 4 Suivi Appuis\\18-Partage\\BARRENTO ANTUNES Raphael\\7_CSharp\\Centre macro.db");
 
     public static bool GetUpdate()
     {
@@ -74,6 +74,9 @@ public static class GetVersion
             ShowCancelButton = true,
             ShowTimeRemaining = true,
         };
+        
+        File.Delete(NewVersionCopy);
+        
         msg.DoWork += Msg_OnDoWork;
         msg.RunWorkerCompleted += Msg_OnRunWorkerCompleted;
             
@@ -93,7 +96,7 @@ public static class GetVersion
         }
         else
         {
-            Process.Start(NewVersionCopy);
+            Process.Start(Environment.GetEnvironmentVariable("WINDIR") + @"\explorer.exe",NewVersionCopy);
         }
     }
 
@@ -122,8 +125,6 @@ public static class GetVersion
                 copy.Cancel = true;
                 break;
             }
-            
-            Console.WriteLine(progress);
             msg.ReportProgress((int)progress, null, $"Progression: {Math.Round(progress, 2)} %");
         }
     }

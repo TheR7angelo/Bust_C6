@@ -141,7 +141,7 @@ public class C6Reader : Reader, IDisposable
         });
     }
 
-    public Task<IEnumerable<string>> CleanPicture(List<string> app)
+    public Task<IEnumerable<string>> CleanPicture(List<string> app, int insee)
     {
         var rowMax = Picture!.Dimension.End.Row;
         var uris = new List<string>();
@@ -150,14 +150,14 @@ public class C6Reader : Reader, IDisposable
         {
             var name = Picture.Cells[row, 1].Value;
             if (name is null) continue;
-            
+
             var nameStr = name.ToString()!.Trim();
             if (nameStr.Equals(string.Empty)) continue;
 
             nameStr = nameStr.Split('_')[0];
 
-            var xname = string.Empty;
-            if (nameStr[0].Equals('0')) xname = nameStr[1..];
+            var xname = nameStr;
+            if (xname[0].Equals('0')) xname = xname[1..];
 
             if (app.Contains(nameStr) || app.Contains(xname)) continue;
 

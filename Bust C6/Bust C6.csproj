@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>WinExe</OutputType>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net7.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>Icone.ico</ApplicationIcon>
-        <RootNamespace>Bust_C6</RootNamespace>
-        <Version>1.5.0</Version>
+        <RootNamespace>Burst_C6</RootNamespace>
+        <Version>1.5.2</Version>
         <Company>Bust C6</Company>
         <Product>Bust C6</Product>
         <PackageId>Bust C6</PackageId>
         <Authors>ZP6177</Authors>
+        <AssemblyName>Burst C6</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

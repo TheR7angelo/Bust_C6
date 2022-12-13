@@ -45,11 +45,12 @@ public class MainWorker
             var allApp = apps.Where(s => s.Insee.Equals(insee)).Select(s => s.App).ToList();
 
             var clearExport = ClearExport(c6, insee, allApp);
-            var clearPicture = c6.CleanPicture(allApp);
+            var clearPicture = c6.CleanPicture(allApp, insee);
 
             await Task.WhenAll(clearExport, clearPicture);
 
-            var filePath = $"{savePath}-{insee}.xlsx";
+            var index = insees.FindIndex(s => s.Equals(insee)) + 1;
+            var filePath = $"{savePath}-{index}.xlsx";
             await c6.Book.SaveAsAsync(filePath, token);
 
             await ClearZip(filePath, clearPicture.Result);
